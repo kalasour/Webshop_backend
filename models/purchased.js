@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../database/connection');
 
-function createPurchasedModel() {
+function createModel() {
   return sequelize.define(
         'purchased_item', {
             id: {
@@ -53,4 +53,4 @@ function createPurchasedModel() {
     );
 }
 
-module.exports = createPurchasedModel;
+module.exports = createModel;
