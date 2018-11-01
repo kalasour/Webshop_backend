@@ -49,5 +49,15 @@ function createModel() {
         }
     );
 }
-
-module.exports = createModel;
+const modelAttributes = [ 
+    'id', 
+    'name', 
+    'surname', 
+    'age', 
+    'b_date', 
+    'address', 
+    'username', 
+    'password', 
+    'customer_type_id', 
+    ];
+module.exports = {createModel,modelAttributes};

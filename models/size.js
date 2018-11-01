@@ -24,5 +24,9 @@ function createModel() {
         }
     );
 }
-
-module.exports = createModel;
+const modelAttributes = [ 
+    'id', 
+    'name',
+     'price_per_size',
+    ];
+module.exports = {createModel,modelAttributes};

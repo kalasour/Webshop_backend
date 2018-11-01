@@ -1,9 +1,27 @@
 const Sequelize = require('sequelize');
+const candle_type = require('./candle_type').createModel();
+const color = require('./colors').createModel();
+const smell = require('./smell').createModel();
+const size = require('./size').createModel();
+const waiting_list = require('./waiting_list').createModel();
+const invoice = require('./invoice').createModel();
+const history = require('./history').createModel();
 
 const sequelize = require('../database/connection');
-
+const modelAttributes = [
+    'id',
+    'type_id',
+    'number',
+    'size_id',
+    'color_id',
+    'min_weight',
+    'price',
+    'smell_id',
+    'smell_id1',
+    'expr_date'
+];
 function createModel() {
-  return sequelize.define(
+    const purchased = sequelize.define(
         'purchased_item', {
             id: {
                 type: Sequelize.INTEGER,
@@ -51,6 +69,19 @@ function createModel() {
             freezeTableName: true
         }
     );
+
+    purchased.belongsTo(candle_type, {
+        as: 'candle_type',
+        foreignKey: 'type_id',
+        targetKey: 'id',
+        onDelete: 'SET NULL',
+        constraints: false,
+        onUpdate: 'CASCADE'
+    })
+
+
+
+    return purchased;
 }
 
-module.exports = createModel;
+module.exports = {createModel,modelAttributes};

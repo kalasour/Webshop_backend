@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../database/connection');
 
 function createModel() {
-  return sequelize.define(
+    return sequelize.define(
         'expense', {
             candle_type_id: {
                 type: Sequelize.INTEGER,
@@ -19,5 +19,11 @@ function createModel() {
         }
     );
 }
-
-module.exports = createModel;
+const modelAttributes = [
+    'candle_type_id',
+    'price',
+];
+module.exports = {
+    createModel,
+    modelAttributes
+};

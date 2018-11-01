@@ -37,5 +37,12 @@ function createModel() {
         }
     );
 }
-
-module.exports = createModel;
+const modelAttributes = [ 
+    'customers_id', 
+    'customers_username', 
+    'purchased_item_id', 
+    'date_in', 
+    'date_out', 
+    'number', 
+    ];
+module.exports = {createModel,modelAttributes};

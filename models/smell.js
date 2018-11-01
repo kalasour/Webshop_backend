@@ -24,5 +24,9 @@ function createModel() {
         }
     );
 }
-
-module.exports = createModel;
+const modelAttributes = [ 
+    'id', 
+    'name', 
+    'cost', 
+    ];
+module.exports = {createModel,modelAttributes};

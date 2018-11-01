@@ -30,5 +30,10 @@ function createModel() {
         }
     );
 }
-
-module.exports = createModel;
+const modelAttributes = [ 
+    'date', 
+    'gain', 
+    'earn', 
+    'expense', 
+    ];
+module.exports = {createModel,modelAttributes};

@@ -29,5 +29,10 @@ function createModel() {
         }
     );
 }
-
-module.exports = createModel;
+const modelAttributes = [ 
+    'customers_id', 
+    'customers_username', 
+    'candle_type_id', 
+    'time', 
+    ];
+module.exports = {createModel,modelAttributes};
