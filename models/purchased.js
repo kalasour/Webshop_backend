@@ -20,6 +20,7 @@ const modelAttributes = [
     'smell_id1',
     'expr_date'
 ];
+
 function createModel() {
     const purchased = sequelize.define(
         'purchased_item', {
@@ -78,10 +79,54 @@ function createModel() {
         constraints: false,
         onUpdate: 'CASCADE'
     })
+    purchased.belongsTo(color, {
+        as: 'color',
+        foreignKey: 'color_id',
+        targetKey: 'id',
+        onDelete: 'SET NULL',
+        constraints: false,
+        onUpdate: 'CASCADE'
+    })
+    purchased.belongsTo(size, {
+        as: 'size',
+        foreignKey: 'size_id',
+        targetKey: 'id',
+        onDelete: 'SET NULL',
+        constraints: false,
+        onUpdate: 'CASCADE'
+    })
+    purchased.belongsTo(smell, {
+        as: 'smell1',
+        foreignKey: 'smell_id',
+        targetKey: 'id',
+        onDelete: 'SET NULL',
+        constraints: false,
+        onUpdate: 'CASCADE'
+    })
+    purchased.belongsTo(smell, {
+        as: 'smell2',
+        foreignKey: 'smell_id1',
+        targetKey: 'id',
+        onDelete: 'SET NULL',
+        constraints: false,
+        onUpdate: 'CASCADE'
+    })
+    purchased.hasMany(waiting_list, {
+        foreignKey:'purchased_item_id',
+    })
+    purchased.hasMany(history, {
+        foreignKey:'purchased_item_id',
+    })
+    purchased.hasMany(invoice, {
+        foreignKey:'purchased_item_id',
+    })
 
 
 
     return purchased;
 }
 
-module.exports = {createModel,modelAttributes};
+module.exports = {
+    createModel,
+    modelAttributes
+};

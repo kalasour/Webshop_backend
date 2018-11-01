@@ -1,15 +1,35 @@
 const _ = require('lodash');
 const Purchased = require('../models/purchased').createModel();
-const candle_type =require('../models/candle_type').createModel();
+const candle_type =require('../models/candle_type');
 const modelAttributes=require('../models/purchased').modelAttributes;
+const color=require('../models/colors');
+const size=require('../models/size');
+const smell=require('../models/smell');
 async function findAll() {
     const purchaseds = await Purchased.findAll({
         attributes: modelAttributes,
         include: [{
-                model: candle_type,
+                model: candle_type.createModel(),
                 as:'candle_type',
-                attributes:['id','name']
-            }, // load all pictures
+                attributes:candle_type.modelAttributes
+            },
+            {
+                model: color.createModel(),
+                as:'color',
+                attributes:color.modelAttributes
+            },{
+                model: size.createModel(),
+                as:'size',
+                attributes:size.modelAttributes
+            },{
+                model: smell.createModel(),
+                as:'smell1',
+                attributes:smell.modelAttributes
+            },{
+                model: smell.createModel(),
+                as:'smell2',
+                attributes:smell.modelAttributes
+            }
         ]
     });
     return purchaseds
