@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const sequelize =require('sequelize');
 const {
     viewModel,
     viewAttribute,
@@ -37,7 +38,18 @@ async function findById(id_in) {
     });
     return Models;
 }
+async function groupByType() {
+    const Models = await viewModel.findAll({
+        attributes: [[viewModel.sequelize.fn('sum', sequelize.col('time')),'time'],'candle_type_id'],
+        group:'candle_type_id',
+        order:['time'],
+    });
+    return Models
+
+}
+
 module.exports = {
     findAll,
-    findById
+    findById,
+    groupByType
 };

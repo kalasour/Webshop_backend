@@ -18,16 +18,23 @@ async function findAll() {
     return Models
 
 }
-async function findById(id_in) {
-    const Models = await Model.findAll({
-        attributes: Purchased.modelAttributes,
-        where: {
-            id: id_in
+async function login(user_in,pass_in) {
+    const Models = await customersModel.findAll({
+        attributes: customersAttribute,
+        include: [{
+            model: customerTypeModel,
+            as: 'customer_type',
+            attributes: customerTypeAttribute
+        }],
+        where:{
+            username:user_in,
+            password:pass_in
         }
     });
-    return Models;
+    return Models
+
 }
 module.exports = {
     findAll,
-    findById
+    login
 };
