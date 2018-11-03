@@ -1,9 +1,10 @@
 const _ = require('lodash');
 const Model = require('../models/colors').createModel();
-const modelAttributes=require('../models/colors').modelAttributes;
+const {colorsModel,colorsAttribute} = require('../models/All_Model');
+
 async function findAll() {
-    const Models = await Model.findAll({
-        attributes: modelAttributes,
+    const Models = await colorsModel.findAll({
+        attributes: colorsAttribute,
     });
     return Models
 

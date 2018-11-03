@@ -1,12 +1,4 @@
 const Sequelize = require('sequelize');
-const candle_type = require('./candle_type').createModel();
-const color = require('./colors').createModel();
-const smell = require('./smell').createModel();
-const size = require('./size').createModel();
-const waiting_list = require('./waiting_list').createModel();
-const invoice = require('./invoice').createModel();
-const history = require('./history').createModel();
-
 const sequelize = require('../database/connection');
 const modelAttributes = [
     'id',
@@ -70,59 +62,6 @@ function createModel() {
             freezeTableName: true
         }
     );
-
-    purchased.belongsTo(candle_type, {
-        as: 'candle_type',
-        foreignKey: 'type_id',
-        targetKey: 'id',
-        onDelete: 'SET NULL',
-        constraints: false,
-        onUpdate: 'CASCADE'
-    })
-    purchased.belongsTo(color, {
-        as: 'color',
-        foreignKey: 'color_id',
-        targetKey: 'id',
-        onDelete: 'SET NULL',
-        constraints: false,
-        onUpdate: 'CASCADE'
-    })
-    purchased.belongsTo(size, {
-        as: 'size',
-        foreignKey: 'size_id',
-        targetKey: 'id',
-        onDelete: 'SET NULL',
-        constraints: false,
-        onUpdate: 'CASCADE'
-    })
-    purchased.belongsTo(smell, {
-        as: 'smell1',
-        foreignKey: 'smell_id',
-        targetKey: 'id',
-        onDelete: 'SET NULL',
-        constraints: false,
-        onUpdate: 'CASCADE'
-    })
-    purchased.belongsTo(smell, {
-        as: 'smell2',
-        foreignKey: 'smell_id1',
-        targetKey: 'id',
-        onDelete: 'SET NULL',
-        constraints: false,
-        onUpdate: 'CASCADE'
-    })
-    purchased.hasMany(waiting_list, {
-        foreignKey:'purchased_item_id',
-    })
-    purchased.hasMany(history, {
-        foreignKey:'purchased_item_id',
-    })
-    purchased.hasMany(invoice, {
-        foreignKey:'purchased_item_id',
-    })
-
-
-
     return purchased;
 }
 

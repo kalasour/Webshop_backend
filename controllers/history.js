@@ -1,9 +1,22 @@
 const _ = require('lodash');
-const Model = require('../models/history').createModel();
-const modelAttributes=require('../models/history').modelAttributes;
+const {
+    historyModel,
+    historyAttribute,
+    customersModel,
+    customersAttribute
+} = require('../models/All_Model');
 async function findAll() {
-    const Models = await Model.findAll({
-        attributes: modelAttributes,
+    const Models = await historyModel.findAll({
+        attributes: historyAttribute,
+        include: [{
+            model: customersModel,
+            as: 'customers_user',
+            attributes: customersAttribute
+        }, {
+            model: customersModel,
+            as: 'customers',
+            attributes: customersAttribute
+        }],
     });
     return Models
 

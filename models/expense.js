@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize');
-
 const sequelize = require('../database/connection');
 
 function createModel() {
-    return sequelize.define(
+    expense = sequelize.define(
         'expense', {
             candle_type_id: {
                 type: Sequelize.INTEGER,
@@ -18,6 +17,9 @@ function createModel() {
             freezeTableName: true
         }
     );
+   
+
+    return expense;
 }
 const modelAttributes = [
     'candle_type_id',

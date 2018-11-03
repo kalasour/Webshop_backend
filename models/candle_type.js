@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize');
-
 const sequelize = require('../database/connection');
 
 function createModel() {
-  return sequelize.define(
+    const candle_type = sequelize.define(
         'candle_type', {
             id: {
                 type: Sequelize.INTEGER,
@@ -19,9 +18,14 @@ function createModel() {
             freezeTableName: true
         }
     );
+
+    return candle_type;
 }
-const modelAttributes = [ 
-    'id', 
-    'name', 
-    ];
-module.exports = {createModel,modelAttributes};
+const modelAttributes = [
+    'id',
+    'name',
+];
+module.exports = {
+    createModel,
+    modelAttributes
+};

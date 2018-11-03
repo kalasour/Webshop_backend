@@ -1,34 +1,40 @@
 const _ = require('lodash');
-const Purchased = require('../models/purchased').createModel();
-const candle_type =require('../models/candle_type');
-const modelAttributes=require('../models/purchased').modelAttributes;
-const color=require('../models/colors');
-const size=require('../models/size');
-const smell=require('../models/smell');
+const {
+    purchsedModel,
+    purchasedAttribute,
+    candleTypeModel,
+    candleTypeAttribute,
+    colorsModel,
+    colorsAttribute,
+    sizeModel,
+    sizeAttribute,
+    smellModel,
+    smellAttribute,
+} = require('../models/All_Model')
 async function findAll() {
-    const purchaseds = await Purchased.findAll({
-        attributes: modelAttributes,
+    const purchaseds = await purchsedModel.findAll({
+        attributes: purchasedAttribute,
         include: [{
-                model: candle_type.createModel(),
-                as:'candle_type',
-                attributes:candle_type.modelAttributes
+                model: candleTypeModel,
+                as: 'candle_type',
+                attributes: candleTypeAttribute
             },
             {
-                model: color.createModel(),
-                as:'color',
-                attributes:color.modelAttributes
-            },{
-                model: size.createModel(),
-                as:'size',
-                attributes:size.modelAttributes
-            },{
-                model: smell.createModel(),
-                as:'smell1',
-                attributes:smell.modelAttributes
-            },{
-                model: smell.createModel(),
-                as:'smell2',
-                attributes:smell.modelAttributes
+                model: colorsModel,
+                as: 'color',
+                attributes: colorsAttribute
+            }, {
+                model: sizeModel,
+                as: 'size',
+                attributes: sizeAttribute
+            }, {
+                model: smellModel,
+                as: 'smell1',
+                attributes: smellAttribute
+            }, {
+                model: smellModel,
+                as: 'smell2',
+                attributes: smellAttribute
             }
         ]
     });

@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize');
-
 const sequelize = require('../database/connection');
 
 function createModel() {
-  return sequelize.define(
+  customer = sequelize.define(
         'customers', {
             id: {
                 type: Sequelize.INTEGER,
@@ -48,6 +47,9 @@ function createModel() {
             freezeTableName: true
         }
     );
+
+
+    return customer
 }
 const modelAttributes = [ 
     'id', 
