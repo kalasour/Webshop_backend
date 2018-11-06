@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-
+const bodyParser = require('body-parser');
 const app = express();
 
 const PurchasedRoute = require('./routes/purchased');
@@ -18,7 +18,8 @@ const WaitingListRoute=require('./routes/waiting_list');
 const CandleTypeRoute=require('./routes/candle_type');
 app.use(express.static(__dirname + '/public'));
 app.use(cors());
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use('/api/PurchasedItem', PurchasedRoute);
 app.use('/api/Candle_type', CandleTypeRoute);
 app.use('/api/Colors', ColorsRoute);

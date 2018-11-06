@@ -19,9 +19,9 @@ const {
 
 
 async function create(params) {
-
-    const purchased = await this.purchsedModel.create(params);
-
+    console.log(params)
+    const purchased = await purchsedModel.create(params);
+    // console.log(purchased)
     return purchased;
   }
 
@@ -145,9 +145,7 @@ async function TopSale() {
     return _.sortBy( data, 'number' ).reverse();
 }
 
-function set(item) {
-    return  Object.assign({id: 0}, JSON.parse(item));
-}
+
 async function findById(id_in) {
 
     const purchaseds = await Purchased.findAll({
@@ -212,6 +210,19 @@ async function onlyType(input) {
 //     };
 // }
 
+
+async function deletePurchased(id_in) {
+
+    const purchaseds = await purchsedModel.findOne({
+        attributes: purchasedAttribute,
+        where: {
+            id: id_in
+        }
+    });
+    purchaseds.destroy();
+    return null;
+
+}
 module.exports = {
     findAll,
     findById,
@@ -219,5 +230,6 @@ module.exports = {
     promotion,
     TopSale,
     onlyType,
-    create
+    create,
+    deletePurchased
 };

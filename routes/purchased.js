@@ -28,6 +28,7 @@ router.get('/type/:type_id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  // console.log(req.body)
   try {
     const purchased = await purchasedController.create(req.body);
     res.send(purchased);
@@ -36,4 +37,13 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.delete('/:Id', async (req, res) => {
+  const Id = req.params.Id;
+  try {
+    await purchasedController.deletePurchased(Id);
+    res.send(`{ "success": true }`);
+  } catch (err) {
+    console.log(err);
+  }
+});
   module.exports = router;
