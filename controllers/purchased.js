@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const sequelize = require('sequelize');
 const {
     purchsedModel,
     purchasedAttribute,
@@ -10,6 +11,10 @@ const {
     sizeAttribute,
     smellModel,
     smellAttribute,
+    viewModel,
+    viewAttribute,
+    invoiceModel,
+    invoiceAttribute
 } = require('../models/All_Model')
 async function findAll() {
     const purchaseds = await purchsedModel.findAll({
@@ -43,7 +48,97 @@ async function findAll() {
     //     return pack(purchased);
     // });
 }
+async function promotion() {
+    const purchaseds = await purchsedModel.findAll({
+        attributes: purchasedAttribute,
+        include: [{
+                model: candleTypeModel,
+                as: 'candle_type',
+                attributes: candleTypeAttribute
+            },
+            {
+                model: colorsModel,
+                as: 'color',
+                attributes: colorsAttribute
+            }, {
+                model: sizeModel,
+                as: 'size',
+                attributes: sizeAttribute
+            }, {
+                model: smellModel,
+                as: 'smell1',
+                attributes: smellAttribute
+            }, {
+                model: smellModel,
+                as: 'smell2',
+                attributes: smellAttribute
+            }
+        ],
+        order:['expr_date']
+    });
+    return purchaseds
+    // return _.map(purchaseds, purchased => {
+    //     return pack(purchased);
+    // });
+}
+async function TopView() {
+    const TopView = await viewModel.findAll({
+        attributes: [
+            [viewModel.sequelize.fn('sum', sequelize.col('time')), 'time'], 'candle_type_id'
+        ],
+        group: 'candle_type_id',
+        order: ['time'],
+    })
+    const purchaseds = await findAll();
+    textView=JSON.stringify(TopView)
+    viewObj=JSON.parse(textView)
+    // return purchaseds;
+    const data = _.map(purchaseds, purchased => {
+        text=JSON.stringify(purchased);
+        newObj=JSON.parse(text)
+        newObj.time=0;
+        _.map(viewObj,view=>{
+            if(newObj.type_id==view.candle_type_id)
+            {
+                newObj.time=parseInt(view.time)
+            }
+        })
 
+        return newObj;
+    });
+    return _.sortBy( data, 'time' ).reverse();
+}
+
+async function TopSale() {
+    const TopSale = await invoiceModel.findAll({
+        attributes: [[invoiceModel.sequelize.fn('sum', sequelize.col('number')),'number'],'id'],
+        group:'id',
+        order:['number'],
+    });
+        
+    const purchaseds = await findAll();
+    textSale=JSON.stringify(TopSale)
+    saleObj=JSON.parse(textSale)
+    // return purchaseds;
+    const data = _.map(purchaseds, purchased => {
+        text=JSON.stringify(purchased);
+        newObj=JSON.parse(text)
+        newObj.number=0;
+        _.map(saleObj,view=>{
+            if(newObj.id==view.id)
+            {
+                newObj.number=parseInt(view.number)
+            }
+        })
+
+        return newObj;
+    });
+    return _.sortBy( data, 'number' ).reverse();
+}
+
+function set(item) {
+    return  Object.assign({id: 0}, JSON.parse(item));
+}
 async function findById(id_in) {
 
     const purchaseds = await Purchased.findAll({
@@ -53,8 +148,44 @@ async function findById(id_in) {
         }
     });
     return _.map(purchaseds, purchased => {
-        return pack(purchased);
+
+        return purchased;
     });
+}
+async function onlyType(input) {
+    const purchaseds = await purchsedModel.findAll({
+        attributes: purchasedAttribute,
+        include: [{
+                model: candleTypeModel,
+                as: 'candle_type',
+                attributes: candleTypeAttribute
+            },
+            {
+                model: colorsModel,
+                as: 'color',
+                attributes: colorsAttribute
+            }, {
+                model: sizeModel,
+                as: 'size',
+                attributes: sizeAttribute
+            }, {
+                model: smellModel,
+                as: 'smell1',
+                attributes: smellAttribute
+            }, {
+                model: smellModel,
+                as: 'smell2',
+                attributes: smellAttribute
+            }
+        ],
+        where: {
+            type_id: input
+        }
+    });
+    return purchaseds
+    // return _.map(purchaseds, purchased => {
+    //     return pack(purchased);
+    // });
 }
 
 // function pack(item) {
@@ -74,5 +205,9 @@ async function findById(id_in) {
 
 module.exports = {
     findAll,
-    findById
+    findById,
+    TopView,
+    promotion,
+    TopSale,
+    onlyType
 };

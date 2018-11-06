@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const sequelize =require('sequelize');
 const {
     invoiceModel,
     invoiceAttribute,
@@ -37,7 +38,17 @@ async function findById(id_in) {
     });
     return Models;
 }
+async function TopSale() {
+    const Models = await invoiceModel.findAll({
+        attributes: [[invoiceModel.sequelize.fn('sum', sequelize.col('number')),'number'],'id'],
+        group:'id',
+        order:['number'],
+    });
+    return Models.reverse();
+
+}
 module.exports = {
     findAll,
-    findById
+    findById,
+    TopSale
 };
