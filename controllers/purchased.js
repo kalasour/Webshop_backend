@@ -16,6 +16,15 @@ const {
     invoiceModel,
     invoiceAttribute
 } = require('../models/All_Model')
+
+
+async function create(params) {
+
+    const purchased = await this.purchsedModel.create(params);
+
+    return purchased;
+  }
+
 async function findAll() {
     const purchaseds = await purchsedModel.findAll({
         attributes: purchasedAttribute,
@@ -209,5 +218,6 @@ module.exports = {
     TopView,
     promotion,
     TopSale,
-    onlyType
+    onlyType,
+    create
 };

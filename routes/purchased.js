@@ -26,4 +26,14 @@ router.get('/type/:type_id', async (req, res) => {
   const purchased = await purchasedController.onlyType(type);
   res.send(purchased);
 });
+
+router.post('/', async (req, res) => {
+  try {
+    const purchased = await purchasedController.create(req.body);
+    res.send(purchased);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
   module.exports = router;
