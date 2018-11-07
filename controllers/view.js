@@ -54,26 +54,28 @@ async function groupByType() {
 
 async function create(params) {
     const check = await viewModel.findOne({
-        attributes: candleTypeModel,
+        attributes: viewAttribute,
         where: {
             customers_id: params.customers_id,
             customers_username: params.customers_username,
             candle_type_id: params.candle_type_id
         }
+    }).then( async (data) =>  {
+        if (data != null) await viewModel.update({
+            time: sequelize.literal('time + 1')
+        }, {
+            where: {
+                customers_id: params.customers_id,
+                customers_username: params.customers_username,
+                candle_type_id: params.candle_type_id
+            }
+        })
+        else
+            model = await viewModel.create(params);
     })
-    if (check.length > 0) await viewModel.update({
-        time: sequelize.literal('time + 1')
-    }, {
-        where: {
-            customers_id: params.customers_id,
-            customers_username: params.customers_username,
-            candle_type_id: params.candle_type_id
-        }
-    })
-    else
-        const model = await viewModel.create(params);
+
     // console.log(purchased)
-    return model;
+    return null;
 }
 module.exports = {
     findAll,
