@@ -37,6 +37,20 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.put('/:Id', async (req, res) => {
+  const Id = req.params.Id;
+  try {
+    const purchased = await purchasedController.updatePurchased(
+      req.body,
+      Id
+    );
+
+    res.send(purchased);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.delete('/:Id', async (req, res) => {
   const Id = req.params.Id;
   try {

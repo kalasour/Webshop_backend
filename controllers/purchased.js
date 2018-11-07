@@ -210,6 +210,18 @@ async function onlyType(input) {
 //     };
 // }
 
+async function updatePurchased(newObj,id_in) {
+
+    const purchaseds = await purchsedModel.findOne({
+        attributes: purchasedAttribute,
+        where: {
+            id: id_in
+        }
+    });
+    purchaseds.update(newObj,{fields:purchasedAttribute});
+    return null;
+
+}
 
 async function deletePurchased(id_in) {
 
@@ -231,5 +243,6 @@ module.exports = {
     TopSale,
     onlyType,
     create,
-    deletePurchased
+    deletePurchased,
+    updatePurchased
 };
