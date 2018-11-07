@@ -66,7 +66,6 @@ async function create(params) {
   }
 module.exports = {
     findAll,
-    findById,
     create,
     update,
     Delete,
