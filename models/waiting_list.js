@@ -33,6 +33,7 @@ function createModel() {
                 allowNull: false
             },
         }, {
+            timestamps: false,
             freezeTableName: true
         }
     );

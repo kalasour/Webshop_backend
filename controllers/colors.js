@@ -10,15 +10,50 @@ async function findAll() {
 
 }
 async function findById(id_in) {
-    const Models = await Model.findAll({
-        attributes: Purchased.modelAttributes,
+    const Models = await colorsModel.findAll({
+        attributes: colorsAttribute,
         where: {
             id: id_in
         }
     });
     return Models;
 }
+
+
+async function update(newObj,id_in) {
+
+    const model = await colorsModel.findOne({
+        attributes: colorsAttribute,
+        where: {
+            id: id_in
+        }
+    });
+    model.update(newObj,{fields:colorsAttribute});
+    return null;
+
+}
+
+async function Delete(id_in) {
+
+    const model = await colorsModel.findOne({
+        attributes: colorsAttribute,
+        where: {
+            id: id_in
+        }
+    });
+    model.destroy();
+    return null;
+}
+async function create(params) {
+    
+    const model = await colorsModel.create(params);
+    // console.log(purchased)
+    return model;
+  }
 module.exports = {
     findAll,
-    findById
+    findById,
+    create,
+    update,
+    Delete
 };

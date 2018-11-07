@@ -19,7 +19,7 @@ const {
 
 
 async function create(params) {
-    console.log(params)
+    
     const purchased = await purchsedModel.create(params);
     // console.log(purchased)
     return purchased;
@@ -233,7 +233,6 @@ async function deletePurchased(id_in) {
     });
     purchaseds.destroy();
     return null;
-
 }
 module.exports = {
     findAll,

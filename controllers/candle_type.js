@@ -9,15 +9,48 @@ async function findAll() {
 
 }
 async function findById(id_in) {
-    const Models = await Model.findAll({
-        attributes: Purchased.modelAttributes,
+    const Models = await candleTypeModel.findAll({
+        attributes: candleTypeAttribute,
         where: {
             id: id_in
         }
     });
     return Models;
 }
+async function update(newObj,id_in) {
+
+    const model = await candleTypeModel.findOne({
+        attributes: candleTypeAttribute,
+        where: {
+            id: id_in
+        }
+    });
+    model.update(newObj,{fields:candleTypeAttribute});
+    return null;
+
+}
+
+async function Delete(id_in) {
+
+    const model = await candleTypeModel.findOne({
+        attributes: candleTypeModel,
+        where: {
+            id: id_in
+        }
+    });
+    model.destroy();
+    return null;
+}
+async function create(params) {
+    
+    const model = await candleTypeModel.create(params);
+    // console.log(purchased)
+    return model;
+  }
 module.exports = {
     findAll,
-    findById
+    findById,
+    update,
+    Delete,
+    create
 };

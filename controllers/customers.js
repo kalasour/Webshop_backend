@@ -34,7 +34,41 @@ async function login(user_in,pass_in) {
     return Models
 
 }
+async function update(newObj,id_in) {
+
+    const model = await customersModel.findOne({
+        attributes: customersAttribute,
+        where: {
+            id: id_in
+        }
+    });
+    model.update(newObj,{fields:customersAttribute});
+    return null;
+
+}
+
+async function Delete(id_in) {
+
+    const model = await customersModel.findOne({
+        attributes: customersAttribute,
+        where: {
+            id: id_in
+        }
+    });
+    model.destroy();
+    return null;
+}
+async function create(params) {
+    
+    const model = await customersModel.create(params);
+    // console.log(purchased)
+    return model;
+  }
 module.exports = {
     findAll,
+    findById,
+    create,
+    update,
+    Delete,
     login
 };

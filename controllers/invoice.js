@@ -47,8 +47,43 @@ async function TopSale() {
     return Models.reverse();
 
 }
+
+
+async function update(newObj,id_in) {
+
+    const model = await invoiceModel.findOne({
+        attributes: invoiceAttribute,
+        where: {
+            id: id_in
+        }
+    });
+    model.update(newObj,{fields:invoiceAttribute});
+    return null;
+
+}
+
+async function Delete(id_in) {
+
+    const model = await invoiceModel.findOne({
+        attributes: invoiceAttribute,
+        where: {
+            id: id_in
+        }
+    });
+    model.destroy();
+    return null;
+}
+async function create(params) {
+    
+    const model = await invoiceModel.create(params);
+    // console.log(purchased)
+    return model;
+  }
 module.exports = {
     findAll,
     findById,
+    create,
+    update,
+    Delete,
     TopSale
 };
