@@ -12,7 +12,8 @@ function createModel() {
                 allowNull: false
             },
             name: {
-                type: Sequelize.STRING,
+                type: Sequelize.ENUM,
+                values: ['large','medium','small','very large','very small'],
                 allowNull: false
             },
             price_per_size: {

@@ -11,7 +11,8 @@ function createModel() {
                 allowNull: false
             },
             name: {
-                type: Sequelize.STRING,
+                type: Sequelize.ENUM,
+                values: ['Generals','Flowers','Geoshapes','Symbols'],
                 allowNull: false
             },
         }, {
