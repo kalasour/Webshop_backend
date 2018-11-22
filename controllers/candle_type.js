@@ -33,7 +33,6 @@ async function update(newObj,id_in) {
 async function Delete(id_in) {
 
     const model = await candleTypeModel.findOne({
-        attributes: candleTypeModel,
         where: {
             id: id_in
         }

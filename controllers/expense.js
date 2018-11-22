@@ -1,28 +1,52 @@
 const _ = require('lodash');
-const {expenseModel,expenseAttribute,candleTypeModel,candleTypeAttribute} = require('../models/All_Model');
+const {expenseModel,candleTypeModel} = require('../models/All_Model');
 
 async function findAll() {
     const Models = await expenseModel.findAll({
-        attributes: expenseAttribute,
         include:[{
             model: candleTypeModel,
             as:'candle_type',
-            attributes:candleTypeAttribute
         }]
     });
     return Models
 
 }
-async function findById(id_in) {
-    const Models = await Model.findAll({
-        attributes: Purchased.modelAttributes,
+async function update(newObj,id_in) {
+
+    const model = await expenseModel.findOne({
         where: {
-            id: id_in
+            candle_type_id: id_in
         }
     });
-    return Models;
+    model.update(newObj);
+    return null;
+
 }
+
+async function Delete(id_in) {
+
+    const model = await expenseModel.findOne({
+        where: {
+            candle_type_id: id_in
+        }
+    });
+    model.destroy();
+    return null;
+}
+async function create(params) {
+    const check = await expenseModel.findOne({
+        where: {
+            candle_type_id: params.candle_type_id,
+        }
+    }).then( async (data) =>  {
+        if (data != null) await data.increment(['price'], { by: params.price })
+        else
+        model = await expenseModel.create(params);
+    })
+    // console.log(purchased)
+    return model;
+  }
+
 module.exports = {
-    findAll,
-    findById
+    findAll,update,Delete,create
 };

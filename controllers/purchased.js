@@ -4,17 +4,11 @@ const {
     purchsedModel,
     purchasedAttribute,
     candleTypeModel,
-    candleTypeAttribute,
     colorsModel,
-    colorsAttribute,
     sizeModel,
-    sizeAttribute,
     smellModel,
-    smellAttribute,
     viewModel,
-    viewAttribute,
     invoiceModel,
-    invoiceAttribute
 } = require('../models/All_Model')
 
 
@@ -27,28 +21,28 @@ async function create(params) {
 
 async function findAll() {
     const purchaseds = await purchsedModel.findAll({
-        attributes: purchasedAttribute,
+        // attributes: purchasedAttribute,
         include: [{
                 model: candleTypeModel,
                 as: 'candle_type',
-                attributes: candleTypeAttribute
+                // attributes: candleTypeAttribute
             },
             {
                 model: colorsModel,
                 as: 'color',
-                attributes: colorsAttribute
+                // attributes: colorsAttribute
             }, {
                 model: sizeModel,
                 as: 'size',
-                attributes: sizeAttribute
+                // attributes: sizeAttribute
             }, {
                 model: smellModel,
                 as: 'smell1',
-                attributes: smellAttribute
+                // attributes: smellAttribute
             }, {
                 model: smellModel,
                 as: 'smell2',
-                attributes: smellAttribute
+                // attributes: smellAttribute
             }
         ]
     });
@@ -59,28 +53,28 @@ async function findAll() {
 }
 async function promotion() {
     const purchaseds = await purchsedModel.findAll({
-        attributes: purchasedAttribute,
+        // attributes: purchasedAttribute,
         include: [{
                 model: candleTypeModel,
                 as: 'candle_type',
-                attributes: candleTypeAttribute
+                // attributes: candleTypeAttribute
             },
             {
                 model: colorsModel,
                 as: 'color',
-                attributes: colorsAttribute
+                // attributes: colorsAttribute
             }, {
                 model: sizeModel,
                 as: 'size',
-                attributes: sizeAttribute
+                // attributes: sizeAttribute
             }, {
                 model: smellModel,
                 as: 'smell1',
-                attributes: smellAttribute
+                // attributes: smellAttribute
             }, {
                 model: smellModel,
                 as: 'smell2',
-                attributes: smellAttribute
+                // attributes: smellAttribute
             }
         ],
         order:['expr_date']
@@ -161,28 +155,28 @@ async function findById(id_in) {
 }
 async function onlyType(input) {
     const purchaseds = await purchsedModel.findAll({
-        attributes: purchasedAttribute,
+        // attributes: purchasedAttribute,
         include: [{
                 model: candleTypeModel,
                 as: 'candle_type',
-                attributes: candleTypeAttribute
+                // attributes: candleTypeAttribute
             },
             {
                 model: colorsModel,
                 as: 'color',
-                attributes: colorsAttribute
+                // attributes: colorsAttribute
             }, {
                 model: sizeModel,
                 as: 'size',
-                attributes: sizeAttribute
+                // attributes: sizeAttribute
             }, {
                 model: smellModel,
                 as: 'smell1',
-                attributes: smellAttribute
+                // attributes: smellAttribute
             }, {
                 model: smellModel,
                 as: 'smell2',
-                attributes: smellAttribute
+                // attributes: smellAttribute
             }
         ],
         where: {
