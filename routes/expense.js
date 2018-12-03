@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Controller = require('../controllers/expense');
 router.get('/', async (req, res) => {
-    const data = await Controller.findAll();
-    res.send(data);
-  });
+  const data = await Controller.findAll();
+  res.send(data);
+});
+
+
 
   router.post('/', async (req, res) => {
     try {

@@ -30,15 +30,6 @@ async function findAll() {
     return Models
 
 }
-async function findById(id_in) {
-    const Models = await Model.findAll({
-        attributes: Purchased.modelAttributes,
-        where: {
-            id: id_in
-        }
-    });
-    return Models;
-}
 async function groupByType() {
     const Models = await viewModel.findAll({
         attributes: [
@@ -52,34 +43,59 @@ async function groupByType() {
 }
 
 
-async function create(params) {
-    const check = await viewModel.findOne({
+async function update(params) {
+
+    const model = await viewModel.findOne({
         attributes: viewAttribute,
         where: {
             customers_id: params.customers_id,
             customers_username: params.customers_username,
             candle_type_id: params.candle_type_id
         }
-    }).then( async (data) =>  {
-        if (data != null) await viewModel.update({
-            time: sequelize.literal('time + 1')
-        }, {
-            where: {
-                customers_id: params.customers_id,
-                customers_username: params.customers_username,
-                candle_type_id: params.candle_type_id
-            }
-        })
-        else
-            model = await viewModel.create(params);
-    })
-
-    // console.log(purchased)
+    });
+    model.update(params);
     return null;
+
+}
+
+async function Delete(params) {
+
+    const model = await viewModel.findOne({
+        attributes: viewAttribute,
+        where: {
+            customers_id: params.customers_id,
+            customers_username: params.customers_username,
+            candle_type_id: params.candle_type_id
+        }
+    });
+    model.destroy();
+    return null;
+}
+
+async function create(params) {
+    await viewModel.findOne({
+        attributes: viewAttribute,
+        where: {
+            customers_id: params.customers_id,
+            customers_username: params.customers_username,
+            candle_type_id: params.candle_type_id
+        }
+    }).then(async (data) => {
+        if (data != null) {
+            await data.increment({
+                'time': params.time
+            })
+        } else {
+            model = await viewModel.create(params);
+        }
+    })
+    // console.log(purchased)
+    return model;
 }
 module.exports = {
     findAll,
-    findById,
     groupByType,
-    create
+    create,
+    update,
+    Delete
 };

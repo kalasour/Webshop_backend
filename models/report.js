@@ -6,7 +6,7 @@ function createModel() {
   return sequelize.define(
         'report', {
             date: {
-                type: Sequelize.DATE,
+                type: Sequelize.DATEONLY,
                 primaryKey: true,
                 allowNull: false
             },
@@ -21,7 +21,7 @@ function createModel() {
                 allowNull: false
             },
             expense: {
-                type: Sequelize.JSON,
+                type: Sequelize.FLOAT,
                 primaryKey: true,
                 allowNull: false
             },

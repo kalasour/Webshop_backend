@@ -24,7 +24,7 @@ const smellModel = require('./smell').createModel();
 const smellAttribute = require('./smell').modelAttributes;
 const viewModel = require('./view').createModel();
 const viewAttribute = require('./view').modelAttributes;
-const watingListModel = require('./waiting_list').createModel();
+const waitingListModel = require('./waiting_list').createModel();
 const waitingListAttribute = require('./waiting_list').modelAttributes;
 const all = {
     purchsedModel,
@@ -51,8 +51,9 @@ const all = {
     smellAttribute,
     viewModel,
     viewAttribute,
-    watingListModel,
-    waitingListAttribute
+    waitingListModel,
+    waitingListAttribute,
+    sequelize
 }
 
 
@@ -96,7 +97,7 @@ purchsedModel.belongsTo(smellModel, {
     constraints: false,
     onUpdate: 'CASCADE'
 })
-purchsedModel.hasMany(watingListModel, {
+purchsedModel.hasMany(waitingListModel, {
     foreignKey: 'purchased_item_id',
 })
 purchsedModel.hasMany(historyModel, {
@@ -139,7 +140,7 @@ customersModel.belongsTo(customerTypeModel, {
 customersModel.hasMany(viewModel, {
     foreignKey:['customers_id','customers_username'],
 })
-customersModel.hasMany(watingListModel, {
+customersModel.hasMany(waitingListModel, {
     foreignKey:['customers_id','customers_username'],
 })
 customersModel.hasMany(invoiceModel, {
@@ -252,7 +253,7 @@ viewModel.belongsTo(customersModel, {
 })
 
 
-watingListModel.belongsTo(customersModel, {
+waitingListModel.belongsTo(customersModel, {
     as: 'customers_user',
     foreignKey:'customers_username',
     targetKey: 'username',
@@ -261,7 +262,7 @@ watingListModel.belongsTo(customersModel, {
     onUpdate: 'CASCADE'
 })
 
-watingListModel.belongsTo(customersModel, {
+waitingListModel.belongsTo(customersModel, {
     as: 'customers',
     foreignKey: 'customers_id',
     targetKey: 'id',
@@ -270,7 +271,7 @@ watingListModel.belongsTo(customersModel, {
     onUpdate: 'CASCADE'
 })
 
-watingListModel.belongsTo(purchsedModel, {
+waitingListModel.belongsTo(purchsedModel, {
     as: 'purchased_item',
     foreignKey: 'purchased_item_id',
     targetKey: 'id',

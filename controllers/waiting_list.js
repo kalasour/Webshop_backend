@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const {
-    watingListModel,
+    waitingListModel,
     waitingListAttribute,
     customersModel,
     customersAttribute,
@@ -10,7 +10,7 @@ const {
     candleTypeAttribute
 } = require('../models/All_Model');
 async function findAll() {
-    const Models = await watingListModel.findAll({
+    const Models = await waitingListModel.findAll({
         attributes: waitingListAttribute,
         include: [{
                 model: customersModel,
@@ -37,7 +37,7 @@ async function findAll() {
 
 }
 async function findById(id_in) {
-    const Models = await watingListModel.findAll({
+    const Models = await waitingListModel.findAll({
         attributes: waitingListAttribute,
         where: {
             customers_id: id_in
@@ -60,7 +60,63 @@ async function findById(id_in) {
     });
     return Models;
 }
+
+
+async function update(params) {
+
+    const model = await waitingListModel.findOne({
+        attributes: waitingListAttribute,
+        where: {
+            customers_id: params.customers_id,
+            customers_username: params.customers_username,
+            purchased_item_id: params.purchased_item_id,
+        }
+    });
+    model.update(params);
+    return null;
+
+}
+
+async function Delete(params) {
+
+    const model = await waitingListModel.findOne({
+        attributes: waitingListAttribute,
+        where: {
+            customers_id: params.customers_id,
+            customers_username: params.customers_username,
+            purchased_item_id: params.purchased_item_id,
+        }
+    });
+    model.destroy();
+    return null;
+}
+
+async function create(params) {
+    await waitingListModel.findOne({
+        attributes: waitingListAttribute,
+        where: {
+            customers_id: params.customers_id,
+            customers_username: params.customers_username,
+            purchased_item_id: params.purchased_item_id,
+        }
+    }).then(async (data) => {
+        if (data != null) {
+            // console.log(params)
+            await data.increment({
+                'number': params.number
+            })
+        } else {
+            // console.log(params)
+            await waitingListModel.create(params);
+            
+        }
+    })
+    
+}
 module.exports = {
     findAll,
-    findById
+    findById,
+    create,
+    update,
+    Delete
 };

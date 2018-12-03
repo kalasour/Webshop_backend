@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../database/connection');
 
 function createModel() {
-  return sequelize.define(
+    return sequelize.define(
         'waiting_list', {
             customers_id: {
                 type: Sequelize.INTEGER,
@@ -15,18 +15,18 @@ function createModel() {
                 allowNull: false,
                 primaryKey: true
             },
-            candle_type_id: {
+            purchased_item_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 primaryKey: true
             },
             date_in: {
-                type: Sequelize.DATE,
-                allowNull: false
+                type: Sequelize.DATEONLY,
+                allowNull: false,
             },
             date_out: {
-                type: Sequelize.DATE,
-                allowNull: false
+                type: Sequelize.DATEONLY,
+                allowNull: false,
             },
             number: {
                 type: Sequelize.INTEGER,
@@ -38,12 +38,15 @@ function createModel() {
         }
     );
 }
-const modelAttributes = [ 
-    'customers_id', 
-    'customers_username', 
-    'purchased_item_id', 
-    'date_in', 
-    'date_out', 
-    'number', 
-    ];
-module.exports = {createModel,modelAttributes};
+const modelAttributes = [
+    'customers_id',
+    'customers_username',
+    'purchased_item_id',
+    'date_in',
+    'date_out',
+    'number',
+];
+module.exports = {
+    createModel,
+    modelAttributes
+};
