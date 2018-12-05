@@ -77,7 +77,7 @@ async function create(params) {
             model = await reportModel.create(params);
     })
     // console.log(purchased)
-    return model;
+    return null;
 }
 module.exports = {
     findAll,

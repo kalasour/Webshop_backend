@@ -23,6 +23,17 @@ async function update(newObj,id_in) {
 
 }
 
+async function getPrice(id_in) {
+    
+    const model = await expenseModel.findOne({
+        where: {
+            candle_type_id: id_in
+        }
+    })
+    return model.price;
+
+}
+
 async function Delete(id_in) {
 
     const model = await expenseModel.findOne({
@@ -48,5 +59,5 @@ async function create(params) {
   }
 
 module.exports = {
-    findAll,update,Delete,create
+    findAll,update,Delete,create,getPrice
 };
