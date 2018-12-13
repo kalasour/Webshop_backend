@@ -44,6 +44,12 @@ function createModel() {
                 allowNull: false
             },
         }, {
+            indexes: [
+                {
+                  name: 'login_index',
+                  fields: ['username','password']
+                }
+              ],
             timestamps: false,
             freezeTableName: true
         }
